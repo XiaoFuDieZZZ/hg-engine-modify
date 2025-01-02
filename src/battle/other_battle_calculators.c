@@ -1498,6 +1498,9 @@ int LONG_CALL ServerDoTypeCalcMod(void *bw UNUSED, struct BattleStruct *sp, int 
                     continue;
                 }
             }
+
+            u8 affinity = TypeEffectivenessTable[i][2];         //声明一个变量
+
             if (TypeEffectivenessTable[i][0] == move_type)
             {
                 if (TypeEffectivenessTable[i][1] == defender_type_1)
@@ -1509,6 +1512,11 @@ int LONG_CALL ServerDoTypeCalcMod(void *bw UNUSED, struct BattleStruct *sp, int 
                         && (TypeEffectivenessTable[i][2] == 20)
                         && defender_type_1 == TYPE_FLYING))
                     {
+                        //如果技能是冷冻干燥，而且对方属性1=水系
+                        if(move_no ==MOVE_FREEZE_DRY && defender_type_1 == TYPE_WATER)
+                        {
+                            affinity =20;   //效果拔群，2倍伤害
+                        }
                         damage = TypeCheckCalc(sp, attack_client, TypeEffectivenessTable[i][2], damage, base_power, flag);
                         if (TypeEffectivenessTable[i][2] == 20) // seems to be useless, modifier isn't used elsewhere
                         {
@@ -1525,6 +1533,11 @@ int LONG_CALL ServerDoTypeCalcMod(void *bw UNUSED, struct BattleStruct *sp, int 
                         && (TypeEffectivenessTable[i][2] == 20)
                         && defender_type_2 == TYPE_FLYING))
                     {
+                        //如果技能是冷冻干燥，而且对方属性2=水系
+                        if(move_no ==MOVE_FREEZE_DRY && defender_type_2 == TYPE_WATER)
+                        {
+                            affinity =20;   //效果拔群，2倍伤害
+                        }
                         damage = TypeCheckCalc(sp, attack_client, TypeEffectivenessTable[i][2], damage, base_power, flag);
                         if (TypeEffectivenessTable[i][2] == 20) // seems to be useless, modifier isn't used elsewhere
                         {
